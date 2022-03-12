@@ -14,8 +14,11 @@ We want to make an images generator for the elderly. There are several features 
 ## System Structure
 * ![](https://i.imgur.com/3bzkkyp.jpg)
 
+## Requirements
+* conda
+
 ## Build
-* `$ conda env create -f environment.yml`
+* `$ sh scripts/build_env.sh`
 * Must add `.env` file under the root of the project, i.e.,  `ElderService/.env`, and it must have the following variables set: 
   1. `LINE_NOTIFY_TOKEN`: Get the token from `https://notify-bot.line.me/my/services/`
 
