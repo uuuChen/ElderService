@@ -1,3 +1,0 @@
-from .notify import (
-    lineNotification,
-)
