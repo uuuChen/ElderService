@@ -20,10 +20,10 @@ class LineNotification:
                     sticker_id: int = None,
                     notification_disabled: bool = None,
                     ) -> int:
-        # Check the arguments
         def _check_paired(val1: any, val2: any) -> bool:
-            return utils.are_all_vals_None([val1, val2]) or utils.are_all_vals_not_None([val1, val2])
+            return utils.are_all_vals_none([val1, val2]) or utils.are_all_vals_not_none([val1, val2])
 
+        # Check the arguments
         if not _check_paired(image_thumb_nail, image_full_size):
             raise ValueError("Param [imageThumbnail] and [imageFullsize] need to be paired")
         if not _check_paired(sticker_package_id, sticker_id):
@@ -32,8 +32,8 @@ class LineNotification:
         # Send the notify request
         notify_url = os.path.join(self._base_url, "notify")
         headers = {"Authorization": self._authorization}
-        payload = { 
-            "message":               message, 
+        payload = {
+            "message":               message,
             "imageThumbnail":        image_thumb_nail,
             "imageFullsize":         image_full_size,
             "notificationDisabled":  notification_disabled,
