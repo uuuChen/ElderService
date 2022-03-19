@@ -4,8 +4,9 @@ from typing import (
 )
 
 
-def sent_request(url: str, action: str, **kwargs) -> Any:
+def send_request(url: str, action: str, **kwargs) -> Any:
     """Reference: https://docs.python-requests.org/en/latest/user/quickstart/#make-a-request"""
+
     # Get the request function by mapping dict
     mapping = {
         "GET":     requests.get,
