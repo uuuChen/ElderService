@@ -21,6 +21,7 @@ We want to make an images generator for the elderly. There are several features 
 * `$ sh scripts/build_env.sh`
 * Must add `.env` file under the root of the project, i.e.,  `ElderService/.env`, and it must have the following variables set: 
   1. `LINE_NOTIFY_TOKEN`: Get the token from `https://notify-bot.line.me/my/services/`
+  2. `UNSPLASH_CLIENT_ID`: Get the client id from `https://unsplash.com/developers`
 
 ## Run
 * `$ python3 elder_service/main.py`
