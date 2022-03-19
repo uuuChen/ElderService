@@ -21,7 +21,7 @@ def get_parse_args(target_args: List[str], **kwargs) -> Dict[str, any]:
 
 class DotDict(dict):
     """
-    This is a class that inherits dict, and it can use dot to access dict val.
+    This is a class that inherits dict, and it can use dot to access dict values.
     Reference: https://stackoverflow.com/questions/2352181/how-to-use-a-dot-to-access-members-of-dictionary    
     """    
     __getattr__ = dict.get
