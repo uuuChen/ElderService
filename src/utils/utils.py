@@ -1,6 +1,7 @@
 from typing import (
     List,
     Dict,
+    Type,
 )
 
 
@@ -12,10 +13,16 @@ def are_all_vals_not_none(vals: List[any]) -> bool:
     return all(v is not None for v in vals)
 
 
-def get_parse_args(target_args: List[str], **kwargs) -> Dict[str, any]:
-    ret = DotDict(dict())
-    for key in target_args:
-        ret[key] = kwargs.get(key, None)
+def if_raise(condition: bool, exception: Type[Exception], error_str: str = ""):
+    if condition:
+        raise exception(error_str)
+
+
+def pop_required_args(keys: List[any], d: Dict[any, any]) -> List[any]:
+    ret = list()
+    for key in keys:
+        if_raise(key not in d, ValueError, f"argument [{key}] is required")
+        ret.append(d.pop(key))
     return ret
 
 
