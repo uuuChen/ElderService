@@ -11,6 +11,10 @@ from src.utils import (
     make_sure_dirs_exist,
 )
 
+from src.config import (
+    get_config,
+    CONFIG_SECTION_UNSPLASH,
+)
 
 class SearchMethod(Enum):
     RANDOM = auto()
@@ -33,7 +37,7 @@ class UnsplashRequester:
 
     @staticmethod
     def _get_auth_header():
-        return {'Authorization': f'Client-ID {os.environ["UNSPLASH_CLIENT_ID"]}'}
+        return {'Authorization': f"Client-ID { get_config(CONFIG_SECTION_UNSPLASH, 'CLIENT_ID')}"}
 
     def _search_photos_by_query(self, query: str, page: int = 1, per_page: int = 30):
         url = os.path.join(self._base_url, 'search', 'photos')
@@ -56,21 +60,20 @@ class UnsplashRequester:
 
     def search_photos(self, method: SearchMethod, **kwargs):
         if method is SearchMethod.QUERY:
-            _args = pop_required_args(["query"], kwargs)
-            res = self._search_photos_by_query(*_args, **kwargs)
+            args = pop_required_args(["query"], kwargs)
+            infos = self._search_photos_by_query(*args, **kwargs)['results']
         elif method is SearchMethod.RANDOM:
-            res = self._search_photos_by_random(**kwargs)
+            infos = self._search_photos_by_random(**kwargs)
         else:
             raise ValueError(f"searching method [{SearchMethod.value}] is unknown")
-        return res
+        return infos
 
     def download_images_by_query(self,
                                  query: str,
                                  method: SearchMethod = SearchMethod.RANDOM,
                                  quality: SearchQuality = SearchQuality.REGULAR,
                                  save_dir: str = './photos',
-                                 **kwargs
-                                 ):
+                                 **kwargs):
         photos_info = self.search_photos(method, query=query, **kwargs)
         save_dir = os.path.join(save_dir, query)
         make_sure_dirs_exist([save_dir])

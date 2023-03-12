@@ -3,7 +3,7 @@ from typing import (
     Dict,
     Type,
 )
-
+import os
 
 def are_all_vals_none(vals: List[any]) -> bool:
     return all(v is None for v in vals)
@@ -25,6 +25,10 @@ def pop_required_args(keys: List[any], d: Dict[any, any]) -> List[any]:
         ret.append(d.pop(key))
     return ret
 
+
+def make_sure_dirs_exist(dirs_path: List[str]):
+    for path in dirs_path:
+        os.makedirs(path, exist_ok=True)
 
 class DotDict(dict):
     """

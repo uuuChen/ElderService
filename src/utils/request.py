@@ -15,6 +15,8 @@ def send_request(url: str, action: str, **kwargs) -> Any:
         "DELETE":  requests.delete,
         "OPTIONS": requests.options,
     }
+    if action not in mapping:
+        raise ValueError(f'action [{action}] does not exist')
     resp = mapping[action](url, **kwargs)
 
     # Raise HTTPError, if one occurred
