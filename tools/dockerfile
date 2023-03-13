@@ -1,0 +1,16 @@
+FROM ubuntu:latest
+WORKDIR /app
+
+# Update apt library
+RUN apt-get update -y
+
+# Install packages
+RUN apt-get install -y python3-pip
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# Copy source code into workdir
+COPY . .
+
+# Start the server
+CMD [ "python3", "main.py"]
